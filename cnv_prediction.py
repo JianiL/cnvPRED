@@ -13,8 +13,6 @@ input = sys.argv[1]
 
 def load_data( standardize=False ):
     data = pd.read_table(input)
-    #data.loc[data['ClinicalSignificance'] == "Benign", 'ClinicalSignificance'] = 0
-    #data.loc[data['ClinicalSignificance'] == 'Pathogenic', 'ClinicalSignificance'] = 1
     id = pd.concat([data.pop('Chr'), data.pop('Start'), data.pop('End')], axis = 1)
     genes = data.pop('genes')
     data.drop([col for col in ['gene_breaked_start', 'gene_breaked_end']], axis = 1, inplace = True)
@@ -43,9 +41,6 @@ col = [ 'predictions']
 pred_result = pd.DataFrame(predictions, columns=col)
 raw_output = pd.read_table(input)
 output = pd.concat([raw_output, pred_result], axis=1)
-#output.loc[output['VarType'] == 0, 'VarType'] = 'DUP'
-#output.loc[output['VarType'] == 1, 'VarType'] = 'DEL'
-
 output.reset_index()
 
 output_file = sys.argv[2]
