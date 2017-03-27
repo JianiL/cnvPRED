@@ -81,21 +81,6 @@ def get_CNV_gene( file ):
 
 gene_zscore, gene_pLI = get_gene_score('resources/fordist_cleaned_exac_r03_march16_z_pli_rec_null_data.txt')
 
-#data_in_type = sys.argv[2]
-#if data_in_type == "train":
-#    header = ['Chr', 'Start', 'End', 'VarType', 'ClinicalSignificance', 'Length', 'num_gene', 'genes', 
-#              'mis_z_max', 'pli_max', 'num_largePLI', 'num_largeZmis',
-#            'gene_breaked_start', 'gene_breaked_end', 'start_break_gene_mis_z', 'start_break_gene_pli',
-#            'end_break_gene_mis_z', 'end_break_gene_pli', 'disease_genes', 'num_disease_genes']
-#
-#else:
-#    header = ['Chr', 'Start', 'End', 'VarType', 'SampleID', 'Length', 'num_gene', 'genes', 
-#              'mis_z_max', 'pli_max', 'num_largePLI', 'num_largeZmis',
-#            'gene_breaked_start', 'gene_breaked_end', 'start_break_gene_mis_z', 'start_break_gene_pli',
-#            'end_break_gene_mis_z', 'end_break_gene_pli', 'disease_genes', 'num_disease_genes']
-
-#print("\t".join(header))
-
 disease_genes, disease_gene_dict = get_disease_gene( 'resources/gene_condition_source_id'  )
 
 input = sys.argv[1]
