@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 import pickle
 import os
@@ -24,7 +26,7 @@ def load_data( standardize=False ):
     data.loc[data['num_disease_genes'] == 0, 'num_disease_genes'] = 0
     if standardize:
         data = StandardScaler().fit(data).transform(data)
-    
+
     return id, data, samples, cnv_type, genes
 
 cnv_id, cnv_data, sample_id, cnv_type, gene = load_data( standardize=False )
@@ -46,4 +48,3 @@ output.reset_index()
 output_file = sys.argv[2]
 
 output.to_csv(output_file, index = False)
-

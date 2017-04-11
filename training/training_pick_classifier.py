@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 import os
 import numpy as np
@@ -25,7 +27,7 @@ root = '../merge_data'
 def load_data( standardize=False ):
 
     '''
-    load the data to the pandas dataframe and returns 
+    load the data to the pandas dataframe and returns
     a tuple of the cnv ids, the data, and the labels.
     '''
     data = pd.read_table(os.path.join( root, 'train_cnv_w_gene_score.txt' ))
@@ -41,7 +43,7 @@ def load_data( standardize=False ):
     data.loc[data['num_disease_genes'] == 0, 'num_disease_genes'] = 0
     if standardize:
         data = StandardScaler().fit(data).transform(data)
-    
+
     return id, y, data
 
 
@@ -61,7 +63,7 @@ print(selector.scores_)
 
 
 '''
-print out the features ranked by more much variants of the 
+print out the features ranked by more much variants of the
 results the could be explained by the features.
 '''
 zipped = zip(features, selector.scores_)
@@ -111,8 +113,8 @@ def try_different_clf():
         recall = recall_score(labels_test, predictions)
         print("Recall:{:.4%}".format(recall))
         prec = precision_score(labels_test, predictions)
-        print("Precision:{:.4%}".format(prec)) 
-    
+        print("Precision:{:.4%}".format(prec))
+
         predictions = clf.predict_proba(features_test)
         ll = log_loss(labels_test, predictions)
         print("Log Loss: {}".format(ll))
@@ -122,7 +124,7 @@ def try_different_clf():
 
 
 '''
-After the initial selection on the classifier, perform KFold for cross_validation 
+After the initial selection on the classifier, perform KFold for cross_validation
 to narrow down to the classifier that perform best.
 '''
 
@@ -181,10 +183,6 @@ clf2 = GradientBoostingClassifier()
 clf.fit(data_content[new_features_list], data_labels)
 clf2.fit(data_content[new_features_list], data_labels)
 with open('RandomForestClassifier.pickle', 'wb') as f:
-    pickle.dump(clf, f) 
+    pickle.dump(clf, f)
 with open('GradientBoostingClassifier.pickle', 'wb') as f:
     pickle.dump(clf2, f)
-
-   
-
-        
