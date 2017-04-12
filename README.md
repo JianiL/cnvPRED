@@ -16,8 +16,8 @@ python3 cnv_prediction.py -i (the output of the annoation stage)
 The input file is a bed file (tab delimited) with CNV position, sample ID and the estimated length of CNVs:
 eg:
 
-Chr   Start         End         CNV_type  SampleID Length
+Chr     Start           End           CNV_type    SampleID Length
 
-1     1635261       1670548     DEL       A01      35287
+1       1635261         1670548       DEL         A01       35287
 
 I'll continue to improve cnvPRED. If you have good suggestions please let me know! 
