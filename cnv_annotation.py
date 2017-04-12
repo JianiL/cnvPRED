@@ -54,7 +54,7 @@ def get_num_largePLI( list ):
 def get_num_largeZmis( list ):
     '''
     Count the number of genes covered by the cnvs with
-    high pLI score (indicate the gene is important)
+    high Zscore score (indicate the gene is important)
     '''
     j = 0
     for z_miss in list:
