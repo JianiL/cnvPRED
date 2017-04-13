@@ -29,17 +29,6 @@ def get_gene_score( data ):
     pLI = gene_score.set_index('gene')['pLI'].to_dict()
     return z_score, pLI
 
-def get_max_score( list ):
-    '''
-    get the lagest score of the genes covered by the CNVs
-    '''
-    if len(list) == 0:
-        return [0]
-    else:
-        array = np.array(list)
-        max = np.amax(array)
-        return max
-
 def get_num_largePLI( list ):
     '''
     Count the number of genes covered by the cnvs with
@@ -163,8 +152,8 @@ for line in open('cnv_w_genes.txt', 'r'):
         else:
             z_scores.append(-99999.0)
             pLIs.append(0.0)
-    z_score_max = get_max_score(z_scores)
-    pLI_max = get_max_score(pLIs)
+    z_score_max = max(z_scores)
+    pLI_max = max(pLIs)
     num_largeP = get_num_largePLI(pLIs)
     num_largeZ = get_num_largeZmis(z_scores)
     if cnv_disease_gene != []:
