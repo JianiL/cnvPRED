@@ -123,7 +123,7 @@ header = ['Chr', 'Start', 'End', 'VarType', 'SampleID', 'Length', 'num_gene', 'g
 f = open(out_file, 'w')
 f.write("\t".join(header) + "\n")
 
-#annotated the genes
+#annotated genes
 for line in open('cnv_w_genes.txt', 'r'):
     z_scores = []
     pLIs = []
@@ -132,11 +132,12 @@ for line in open('cnv_w_genes.txt', 'r'):
     cnv_disease_gene, num_disease_gene = find_disease_genes( disease_genes, genes )
     start_gene = genes[0]
     end_gene = genes[-1]
+    # get the gene score for the CNV break point disrupted genes
     if start_gene in gene_zscore.keys():
         start_z_score = gene_zscore[start_gene]
         start_pli = gene_pLI[start_gene]
     else:
-        # replace the gene without the score find
+        # sign the gene without the score a special value
         start_z_score = -99999.0
         start_pli = 0.0
     if end_gene in gene_zscore.keys():
@@ -145,6 +146,7 @@ for line in open('cnv_w_genes.txt', 'r'):
     else:
         end_z_score = -99999.0
         end_pli = 0.0
+    # get gene scores for all the genes covered by the CNVs
     for i in range(len(genes)):
         if genes[i] in gene_zscore.keys():
             z_scores.append(gene_zscore[genes[i]])
@@ -152,10 +154,12 @@ for line in open('cnv_w_genes.txt', 'r'):
         else:
             z_scores.append(-99999.0)
             pLIs.append(0.0)
+    # get the largest score
     z_score_max = max(z_scores)
     pLI_max = max(pLIs)
     num_largeP = get_num_largePLI(pLIs)
     num_largeZ = get_num_largeZmis(z_scores)
+    
     if cnv_disease_gene != []:
         f.write( line.strip() + "\t"+ "\t".join([str(z_score_max), str(pLI_max), str(num_largeP), str(num_largeZ),
             start_gene, end_gene, str(start_z_score), str(start_pli),
